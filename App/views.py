@@ -47,10 +47,12 @@ class Gitlab(object):
                 "form": {
                     "title": "工单提交测试",
                     "ticketDesc": "用于提交工单的审核测试",
-                    "dykb": "{}".format(data['object_attributes']['url']),
+                    "url": "{}".format(data['object_attributes']['url']),
                     "projectid": "{}".format(data['object_attributes']["source_project_id"]),
                     "mergeid": "{}".format(data['object_attributes']['id']),
-                    "privatetoken": "{}".format(PRIVATE_TOKEN),
+                    "privatetoken": PRIVATE_TOKEN,
+                    "webhook": WEEBHOOK,
+                    "username": data['user']['username'],
                 },
                 "handle_rules": {
                     "route_id": ROUTE_ID,
@@ -97,7 +99,7 @@ class Ding(object):
         get_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
         sendInfoTitle = "发送工单合并结果信息!"
         sendInfoText = "## **{}发起了mr通知** \n" \
-                       "+ 审批人:&emsp;{}&emsp;{}\n" \ 
+                       "+ 审批人:&emsp;{}&emsp;{}\n" \
                        "+ 执行结果:&ensp;{}\n" \
                        "+ [点击查看]({})&emsp;{}".format(username,
                                                      "shijf", "shijf", result,
@@ -118,10 +120,12 @@ class IndexView(View):
         try:
             content = request.body
             data = json.loads(content)
-            print("data===========================>>>>", data)
+            print("data==================", data)
             gitlab = Gitlab()
             gitlab.get_merge(data)
         except Exception as e:
             data = ''
             print(e)
         return HttpResponse('index')
+
+

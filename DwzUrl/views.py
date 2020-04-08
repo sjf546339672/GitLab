@@ -2,16 +2,10 @@
 
 import django
 import os
-import time
 import xxhash
 
-from dingtalkchatbot.chatbot import DingtalkChatbot
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect
-
 from DwzUrl.models import ShortURLModel
-from constant import WEEBHOOK
-
 
 os.environ.setdefault('DJANGO_SETTING_MODULE', 'GitLab.settings')
 django.setup()

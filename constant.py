@@ -11,15 +11,15 @@ USER_ID = "372f9afa0aea4a748f2183a628b74b2a"  # 用户id
 BASE_URL = "http://devops.uyunsoft.cn/itsm/#/ticket/detail"
 PRIVATE_TOKEN = "xVarr9xLmAv6vro18P4r"  # 查找路径gitlab->profile setting->account
 
-WEEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=" \
-           "8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec"
+WEEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec"
 WORK_ORDER_URL = "http://devops.uyunsoft.cn/itsm/openapi/v3/tickets/create" \
                  "?callback={0}&apikey={1}".format(CALL_BACK, API_KEY)
 
-test = [
-    {"type": "ID", "value": ""},
-    {"type": "IPS", "value": "", "rel": ""},
-    {"type": "TAGS", "value": ""}
-]
-a = [{"type": "id", "value": "5c52560943804298442c2a35"}]
-b = [{"type": "ips", "value": "5c52560943804298442c2a35"}]
+"""
+geturl          https://git.uyunsoft.cn/shijf/WorkOrder/merge_requests/47
+projectid       2969
+mergeid         22187
+WEEBHOOK        https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec
+PRIVATE_TOKEN   xVarr9xLmAv6vro18P4r
+"""
+
