@@ -12,14 +12,26 @@ BASE_URL = "http://devops.uyunsoft.cn/itsm/#/ticket/detail"
 PRIVATE_TOKEN = "xVarr9xLmAv6vro18P4r"  # 查找路径gitlab->profile setting->account
 
 WEEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec"
-WORK_ORDER_URL = "http://devops.uyunsoft.cn/itsm/openapi/v3/tickets/create" \
-                 "?callback={0}&apikey={1}".format(CALL_BACK, API_KEY)
+WORK_ORDER_URL = "http://devops.uyunsoft.cn/itsm/openapi/v3/tickets/create?callback={0}&apikey={1}".format(CALL_BACK, API_KEY)
+TENANT_URL = "http://devops.uyunsoft.cn/tenant/openapi/v2/users/get_by_apikey?apikey="
+
+API_KEY_ONE = "6167ea71e25846838e837d0ab8bce899"  # 弋飞涛
+API_KEY_TWO = "6167ea71e25846838e837d0ab8bce899"  # 弋飞涛
+
 
 """
-geturl          https://git.uyunsoft.cn/shijf/WorkOrder/merge_requests/47
-projectid       2969
-mergeid         22187
-WEEBHOOK        https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec
-PRIVATE_TOKEN   xVarr9xLmAv6vro18P4r
+执行参数：
+mergeid        22304
+projectid      2969
+weekhook       https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfcd3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec
+privatetoken   xVarr9xLmAv6vro18P4r      
+checkuserone   弋飞涛    
+mobileone      18365597692
+checkusertwo   弋飞涛      
+mobiletwo      18365597692  
 """
+
+
+
+
 

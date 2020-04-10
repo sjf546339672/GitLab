@@ -9,7 +9,7 @@ from dingtalkchatbot.chatbot import DingtalkChatbot
 from django.views import View
 
 from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
-                      USER_ID, WEEBHOOK, PRIVATE_TOKEN, API_KEY_ONE,
+                      USER_ID, WEEBHOOK, PRIVATE_TOKEN, API_KEY_ONE, BASE_URL,
                       API_KEY_TWO, WORK_ORDER_URL, TENANT_URL)
 
 
@@ -33,9 +33,31 @@ mobile_two = result_two[0]
 
 class Gitlab(object):
 
+    def deal_gitlab_api(self, data):
+        check_result = "成功"
+        base_url = "https://git.uyunsoft.cn/api/v3/projects/{}/".format(data['object_attributes']["source_project_id"])
+        get_merge_url = base_url + "merge_request/{}/merge?private_token={}".format(data['object_attributes']['id'], PRIVATE_TOKEN)
+        ding = Ding()
+        try:
+            if check_result == "成功":
+                time.sleep(10)
+                response = requests.put(get_merge_url, verify=False)
+                if response.status_code == 200:
+                    result = "合并成功"
+                else:
+                    result = "合并失败请手动合并"
+                ding.send_merge_result_message(data['user']['username'], result, data["object_attributes"]["url"])
+            else:
+                close_merge_url = base_url + "merge_request/{}?private_token={}".format(data['object_attributes']['id'], PRIVATE_TOKEN)
+                body = {"state_event": "close"}
+                get_reult = "审核不通过请更改后再提交"
+                ding.send_merge_result_message(data['user']['username'], get_reult, data["object_attributes"]["url"])
+                requests.put(close_merge_url, data=body, verify=False)
+        except Exception as e:
+            print(e)
+
     def get_merge(self, data):
-        if data["object_attributes"]["action"] == "open" or \
-                        data["object_attributes"]["action"] == "reopen":
+        if data["object_attributes"]["action"] == "open" or data["object_attributes"]["action"] == "reopen":
             body = {
                 "title": "{}在git-{} 中提交了 Merge Request".format(
                     data['user']['username'],
@@ -70,10 +92,15 @@ class Gitlab(object):
                     },
                 }
             }
-            try:
-                requests.post(url=WORK_ORDER_URL, json=body)
-            except Exception as e:
-                print(e)
+            response = requests.post(url=WORK_ORDER_URL, json=body)
+            response_json = response.json()
+            print("response_json==================>>>>>", response_json)
+            print("response_json==================>>>>>")
+            target_url = "{0}/{1}".format(BASE_URL, response_json["id"])
+            ding = Ding()
+            ding.send_merge_message(data, target_url)
+            time.sleep(15)
+            Gitlab.deal_gitlab_api(self, data)
 
 
 class Ding(object):
@@ -84,8 +111,7 @@ class Ding(object):
         sendInfoText = "## **{}发起了mr通知** \n" \
                        "+ 审批人:&emsp;{}&emsp;{}\n" \
                        "+ [点击查看]({})&emsp;{}".format(
-            data['user']['username'], check_user_one, check_user_two,
-            target_url, get_time)
+            data['user']['username'], check_user_one, check_user_two, target_url, get_time)
 
         at_mobiles = [mobile_one, mobile_two]
         xiaoding = DingtalkChatbot(WEEBHOOK)
@@ -99,8 +125,8 @@ class Ding(object):
         sendInfoText = "## **{}发起了mr通知** \n" \
                        "+ 审批人:&emsp;{}&emsp;{}\n" \
                        "+ 执行结果:&ensp;{}\n" \
-                       "+ [点击查看]({})&emsp;{}".format(username, check_user_one,
-                                                     check_user_two, result,
+                       "+ [点击查看]({})&emsp;{}".format(username,
+                                                     check_user_one, check_user_two, result,
                                                      merge_url, get_time)
         at_mobiles = [mobile_one, mobile_two]
         xiaoding = DingtalkChatbot(WEEBHOOK)
