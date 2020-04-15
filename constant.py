@@ -19,6 +19,11 @@ TENANT_URL = "http://devops.uyunsoft.cn/tenant/openapi/v2/" \
              "users/get_by_apikey?apikey="
 
 API_KEY_ONE = "6167ea71e25846838e837d0ab8bce899"  # 弋飞涛
-API_KEY_TWO = "6167ea71e25846838e837d0ab8bce899"  # 弋飞涛
+API_KEY_TWO = "a6b367e9c5724b8c98a60ffa1572b563"  # 史俊峰
+
+check_user_one = "弋飞涛"
+check_user_two = "柯连春"
+mobile_one = "18365597692"
+mobile_two = "18365597692"
 
 

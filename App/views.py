@@ -9,8 +9,9 @@ from dingtalkchatbot.chatbot import DingtalkChatbot
 from django.views import View
 
 from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
-                      USER_ID, WEEBHOOK, PRIVATE_TOKEN, API_KEY_ONE,
-                      API_KEY_TWO, WORK_ORDER_URL, TENANT_URL, BASE_URL)
+                      USER_ID, WEEBHOOK, PRIVATE_TOKEN, WORK_ORDER_URL,
+                      BASE_URL, check_user_one, check_user_two, mobile_one,
+                      mobile_two)
 
 
 def send_merge_message(data, target_url):
@@ -27,26 +28,6 @@ def send_merge_message(data, target_url):
     xiaoding.send_markdown(title=sendInfoTitle,
                            text=sendInfoText,
                            at_mobiles=at_mobiles)
-
-
-class Tenate(object):
-    def get_tenant_message(self, user_apikey):
-        tenant_url = TENANT_URL+user_apikey
-        response = requests.get(tenant_url)
-        get_name = response.json()['realname']
-        get_mobile = response.json()['mobile']
-        return get_name, get_mobile
-
-
-tenant = Tenate()
-result_one = tenant.get_tenant_message(API_KEY_ONE)
-result_two = tenant.get_tenant_message(API_KEY_TWO)
-check_user_one = result_one[0]
-# mobile_one = result_one[1]
-mobile_one = "18365597692"
-check_user_two = result_two[0]
-# mobile_two = result_two[0]
-mobile_two = "18365597692"
 
 
 class Gitlab(object):
@@ -72,13 +53,6 @@ class Gitlab(object):
                     "privatetoken": PRIVATE_TOKEN,
                     "webhook": WEEBHOOK,
                     "username": data['user']['username'],
-                    "checkuserone": result_one[0],
-                    # "mobileone": result_one[1],
-                    "checkusertwo": result_two[0],
-                    # "mobiletwo": result_two[1],
-                    "mobileone": "18365597692",
-                    "mobiletwo": "18365597692",
-
                 },
                 "handle_rules": {
                     "route_id": ROUTE_ID,
