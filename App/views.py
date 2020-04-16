@@ -9,7 +9,7 @@ from dingtalkchatbot.chatbot import DingtalkChatbot
 from django.views import View
 
 from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
-                      USER_ID, WEEBHOOK, PRIVATE_TOKEN, WORK_ORDER_URL,
+                      WEEBHOOK, PRIVATE_TOKEN, WORK_ORDER_URL,
                       BASE_URL, check_user_one, check_user_two, mobile_one,
                       mobile_two)
 
@@ -58,7 +58,7 @@ class Gitlab(object):
                     "route_id": ROUTE_ID,
                     "executors_groups": {
                         LOOP_ID: {
-                            "user": [USER_ID],
+                            "user": [],
                             "group": [],
                         },
                     },
@@ -88,6 +88,3 @@ class IndexView(View):
             data = ''
             print(e)
         return HttpResponse('index')
-
-
-

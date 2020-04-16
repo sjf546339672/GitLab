@@ -15,8 +15,6 @@ WEEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=8f5677735dfc" \
            "d3bff5626b334345df8e2766fcc128e713932ca3737bd609d3ec"
 WORK_ORDER_URL = "http://devops.uyunsoft.cn/itsm/openapi/v3/tickets/" \
                  "create?callback={0}&apikey={1}".format(CALL_BACK, API_KEY)
-TENANT_URL = "http://devops.uyunsoft.cn/tenant/openapi/v2/" \
-             "users/get_by_apikey?apikey="
 
 API_KEY_ONE = "6167ea71e25846838e837d0ab8bce899"  # 弋飞涛
 API_KEY_TWO = "a6b367e9c5724b8c98a60ffa1572b563"  # 史俊峰
