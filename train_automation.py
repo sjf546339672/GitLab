@@ -3,33 +3,27 @@ import time
 import requests
 
 from dingtalkchatbot.chatbot import DingtalkChatbot
-from constant import (WEEBHOOK, PRIVATE_TOKEN)
 
-
-gitlab_project_id = 2969
+gitlab_project_id = ""
 gitlab_merge_id = ""
-gitlab_merge_username = ""
-gitlab_merge_url = ""
-check_result = ""
-gitlab_private_token = PRIVATE_TOKEN
-dingding_webhook = WEEBHOOK
-check_user_one = ""
-check_user_two = ""
+gitlab_private_token = ""
 mobile_one = ""
 mobile_two = ""
+gitlab_merge_username = ""
+check_user_one = ""
+check_result = ""
+check_user_two = ""
+gitlab_merge_url = ""
+dingding_webhook = ""
 
-
-get_merge_url = "https://git.uyunsoft.cn/api/v3/projects/{}/merge_request/{}/" \
-                "merge?private_token={}".format(gitlab_project_id,
-                                                gitlab_merge_id,
-                                                gitlab_private_token)
-close_merge_url = "https://git.uyunsoft.cn/api/v3/projects/{}/merge_request" \
-                  "/{}?private_token={}".format(gitlab_project_id,
-                                                gitlab_merge_id,
-                                                gitlab_private_token)
+get_merge_url = "https://git.uyunsoft.cn/api/v3/projects/{}/merge_request/{}/merge?private_token={}".format(
+    gitlab_project_id, gitlab_merge_id, gitlab_private_token)
+close_merge_url = "https://git.uyunsoft.cn/api/v3/projects/{}/merge_request/{}?private_token={}".format(
+    gitlab_project_id, gitlab_merge_id, gitlab_private_token)
 
 sendInfoTitle = "发送工单合并结果信息!"
 at_mobiles = [mobile_one, mobile_two]
+CHECK_SUCCESS = "0"
 
 
 def send_merge_result_message(result):
@@ -47,7 +41,7 @@ def send_merge_result_message(result):
 
 def deal_gitlab_api():
     try:
-        if check_result == "成功":
+        if check_result == CHECK_SUCCESS:
             response = requests.put(get_merge_url, verify=False)
             if response.status_code == 200:
                 result = "合并成功"
@@ -69,4 +63,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

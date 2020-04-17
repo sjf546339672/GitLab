@@ -88,3 +88,5 @@ class IndexView(View):
             data = ''
             print(e)
         return HttpResponse('index')
+
+
