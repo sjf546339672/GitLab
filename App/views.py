@@ -19,8 +19,11 @@ def send_merge_message(data, target_url):
     sendInfoText = "## **{}发起了mr通知** \n" \
                    "+ 发起人:&ensp;{}\n" \
                    "+ 审批人:&ensp;{}&ensp;{}\n" \
-                   "+ [devops工单详情]({})\n" \
-                   "+ [devops工单详情]({})&ensp;{}".format("shijf", data['user']['username'], check_user_one, check_user_two, "", target_url, get_time)
+                   "+ [gitlab请求详情]({})\n" \
+                   "+ [devops工单详情]({})&ensp;{}".format(data['user']['username'],
+                                                       data["object_attributes"]["last_commit"]["author"]["name"],
+                                                       check_user_one, check_user_two, data["object_attributes"]["url"],
+                                                       target_url, get_time)
 
     at_mobiles = [mobile_one, mobile_two]
     xiaoding = DingtalkChatbot(WEEBHOOK)
@@ -88,5 +91,3 @@ class IndexView(View):
             data = ''
             print(e)
         return HttpResponse('index')
-
-
