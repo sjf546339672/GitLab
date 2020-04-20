@@ -9,19 +9,18 @@ from dingtalkchatbot.chatbot import DingtalkChatbot
 from django.views import View
 
 from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
-                      WEEBHOOK, PRIVATE_TOKEN, WORK_ORDER_URL,
-                      BASE_URL, check_user_one, check_user_two, mobile_one,
-                      mobile_two)
+                      WEEBHOOK, PRIVATE_TOKEN, WORK_ORDER_URL, BASE_URL,
+                      check_user_one, check_user_two, mobile_one, mobile_two)
 
 
 def send_merge_message(data, target_url):
     get_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
     sendInfoTitle = "发送工单提交信息!"
     sendInfoText = "## **{}发起了mr通知** \n" \
+                   "+ 发起人:&ensp;{}\n" \
                    "+ 审批人:&ensp;{}&ensp;{}\n" \
-                   "+ [点击查看]({})&ensp;{}".format(
-        data['user']['username'], check_user_one, check_user_two,
-        target_url, get_time)
+                   "+ [devops工单详情]({})\n" \
+                   "+ [devops工单详情]({})&ensp;{}".format("shijf", data['user']['username'], check_user_one, check_user_two, "", target_url, get_time)
 
     at_mobiles = [mobile_one, mobile_two]
     xiaoding = DingtalkChatbot(WEEBHOOK)
@@ -32,6 +31,7 @@ def send_merge_message(data, target_url):
 
 class Gitlab(object):
     def get_merge(self, data):
+        print(data)
         if data["object_attributes"]["action"] == "open" or \
                         data["object_attributes"]["action"] == "reopen":
             body = {
