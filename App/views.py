@@ -18,12 +18,14 @@ def send_merge_message(data, target_url):
     sendInfoTitle = "发送工单提交信息!"
     sendInfoText = "## **{}发起了mr通知** \n" \
                    "+ 发起人:&ensp;{}\n" \
+                   "+ 仓库名:&ensp;{}\n" \
                    "+ 审批人:&ensp;{}&ensp;{}\n" \
                    "+ [gitlab请求详情]({})\n" \
-                   "+ [devops工单详情]({})&ensp;{}".format(data['user']['username'],
-                                                       data["object_attributes"]["last_commit"]["author"]["name"],
-                                                       check_user_one, check_user_two, data["object_attributes"]["url"],
-                                                       target_url, get_time)
+                   "+ [devops工单详情]({})&ensp;{}".format(
+        data['user']['username'],
+        data["object_attributes"]["last_commit"]["author"]["name"],
+        data["repository"]["name"], check_user_one, check_user_two,
+        data["object_attributes"]["url"], target_url, get_time)
 
     at_mobiles = [mobile_one, mobile_two]
     xiaoding = DingtalkChatbot(WEEBHOOK)

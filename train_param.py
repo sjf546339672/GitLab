@@ -100,7 +100,7 @@ request_body = {
         'action': 'close'
     }
 }
-print(request_body["object_attributes"]["last_commit"]["author"]["name"])
+print(request_body["repository"]["name"])
 
 response_json = {
     'id': '7bdf6397b3994c879fe61577adf8a285',
