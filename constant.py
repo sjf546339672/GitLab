@@ -23,5 +23,3 @@ check_user_one = "弋飞涛"
 check_user_two = "柯连春"
 mobile_one = "18365597692"
 mobile_two = "18365597692"
-
-

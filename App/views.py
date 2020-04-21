@@ -15,7 +15,7 @@ from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
 
 def send_merge_message(data, target_url):
     get_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time()))
-    sendInfoTitle = "发送工单提交信息!"
+    sendInfoTitle = "发送工单提交信息为!"
     sendInfoText = "## **{}发起了mr通知** \n" \
                    "+ 发起人:&ensp;{}\n" \
                    "+ 仓库名:&ensp;{}\n" \
@@ -93,3 +93,6 @@ class IndexView(View):
             data = ''
             print(e)
         return HttpResponse('index')
+
+
+

@@ -15,7 +15,7 @@ from constant import (URGENT_LEVEL, MODEL_ID, DESCRIPTION, ROUTE_ID, LOOP_ID,
 
 class Tenate(object):
     def get_tenant_message(self, user_apikey):
-        tenant_url = TENANT_URL+user_apikey
+        tenant_url = TENANT_URL + user_apikey
         response = requests.get(tenant_url)
         get_name = response.json()['realname']
         get_mobile = response.json()['mobile']
